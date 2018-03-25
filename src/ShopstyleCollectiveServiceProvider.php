@@ -10,7 +10,9 @@ class ShopstyleCollectiveServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        $this->publishes([
+            __DIR__ . '/../config/shopstyle.php' => config_path('shopstyle.php'),
+        ]);
 
     }
 
