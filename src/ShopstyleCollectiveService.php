@@ -37,6 +37,13 @@ class ShopstyleCollectiveService
         return $this->getJsonResponse($action, $options);
     }
 
+    public function brands()
+    {
+        $action = 'brands';
+
+        return $this->getJsonResponse($action);
+    }
+
     private function getJson($response)
     {
         $json = json_decode($response->getBody()->getContents());
@@ -79,7 +86,7 @@ class ShopstyleCollectiveService
      * @param $options
      * @return null
      */
-    private function getJsonResponse($action, $options)
+    private function getJsonResponse($action, $options = [])
     {
         $response = $this->get($action, $options);
 

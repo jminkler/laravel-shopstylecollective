@@ -36,5 +36,18 @@ class ShopstyleCollectiveServiceTest extends TestCase
         $this->assertEquals('mens-dress-shirts', $categories->id, 'We have mens-dress-shirts');
     }
 
+    /** @test */
+    public function can_list_all_brands()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
 
+        $brands = $obj->brands();
+
+
+        $brands = collect($brands)->filter(function ($value, $key) {
+            return $value->name == 'Dooney & Bourke';
+        })->count();
+
+        $this->assertEquals(1, $brands, 'We have brands');
+    }
 }
