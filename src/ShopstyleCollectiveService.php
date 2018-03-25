@@ -8,10 +8,12 @@
 
 namespace Jminkler\LaravelShopstyleCollective;
 
+use Cache;
 use GuzzleHttp\Client;
 
 class ShopstyleCollectiveService
 {
+    const CACHE_PREFIX = 'shopstyle_';
     protected $apiKey;
     protected $base_url;
     protected $options;
@@ -23,7 +25,7 @@ class ShopstyleCollectiveService
         $this->client = new Client([
             'base_uri' => $this->base_uri,
             'timeout' => 2.0,
-            'debug' => false,
+            'debug' => true,
         ]);
         $this->options = ['pid' => $this->apiKey];
     }
@@ -59,7 +61,6 @@ class ShopstyleCollectiveService
     {
         return $this->getJsonResponse(__FUNCTION__ . '/' . $id);
     }
-
 
 
     private function getJson($response)
@@ -105,20 +106,23 @@ class ShopstyleCollectiveService
      */
     private function getJsonResponse($action, $options = [])
     {
-        $response = $this->get($action, $options);
+        return Cache::remember(self::CACHE_PREFIX . $action, 60, function () use ($action, $options) {
+            $response = $this->get($action, $options);
 
-        if ($response->getBody()) {
-            $json = $this->getJson($response);
-            if (isset($json->$action) && count($json->$action) > 0) {
-                return $json->$action;
-            } else if (isset($json->id)) {
-                return $json;
+            if ($response->getBody()) {
+                $json = $this->getJson($response);
+                if (isset($json->$action) && count($json->$action) > 0) {
+                    return $json->$action;
+                } else if (isset($json->id)) {
+                    return $json;
+                }
+
+                return $json->metadata->root;
             }
 
-            return $json->metadata->root;
-        }
+            return null;
+        });
 
-        return null;
     }
 
 
