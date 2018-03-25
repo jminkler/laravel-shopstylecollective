@@ -1,0 +1,1 @@
+Laravel Shopstyle Collective Package
