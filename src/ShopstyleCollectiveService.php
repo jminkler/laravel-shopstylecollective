@@ -25,7 +25,7 @@ class ShopstyleCollectiveService
         $this->client = new Client([
             'base_uri' => $this->base_uri,
             'timeout' => 10.0,
-            'debug' => true,
+            'debug' => false,
         ]);
         $this->options = ['pid' => $this->apiKey];
     }

@@ -144,6 +144,21 @@ class ShopstyleCollectiveServiceTest extends TestCase
 
     }
 
+    /** @test */
+    public function can_browse_popular_products_on_sale_today()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+
+        $products = $obj->products(null, [
+            'pdd' => Carbon::parse('-1 day')->format('U'),
+            'sort' => 'Popular',
+        ]);
+
+        $this->assertTrue(count($products) == 10);
+
+    }
+
 
 
 }
