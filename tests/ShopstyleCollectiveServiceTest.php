@@ -59,11 +59,11 @@ class ShopstyleCollectiveServiceTest extends TestCase
         $brands = $obj->colors();
 
 
-        $brands = collect($brands)->filter(function ($value, $key) {
+        $color = collect($brands)->filter(function ($value, $key) {
             return $value->name == 'Brown';
         })->count();
 
-        $this->assertEquals(1, $brands, 'We have brands');
+        $this->assertEquals(1, $color, 'We have colors');
     }
 
     /** @test */
@@ -78,7 +78,19 @@ class ShopstyleCollectiveServiceTest extends TestCase
             return $value->name == 'Nordstrom';
         })->count();
 
-        $this->assertEquals(1, $brands, 'We have brands');
+        $this->assertEquals(1, $brands, 'We have retailers');
+    }
+
+    /** @test */
+    public function can_get_single_product()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+        $product = $obj->products('359131344');
+
+
+        $this->assertEquals('359131344', $product->id, 'We have the product');
+        $this->assertEquals('Matthew Williamson Jungle Whispers Gown', $product->name, 'We have the product');
     }
 
 }

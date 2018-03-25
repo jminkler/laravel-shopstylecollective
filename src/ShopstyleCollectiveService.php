@@ -50,6 +50,13 @@ class ShopstyleCollectiveService
         return $this->getJsonResponse(__FUNCTION__);
     }
 
+    public function products($id)
+    {
+        return $this->getJsonResponse(__FUNCTION__ . '/' . $id);
+    }
+
+
+
     private function getJson($response)
     {
         $json = json_decode($response->getBody()->getContents());
@@ -97,8 +104,10 @@ class ShopstyleCollectiveService
 
         if ($response->getBody()) {
             $json = $this->getJson($response);
-            if (count($json->$action) > 0) {
+            if (isset($json->$action) && count($json->$action) > 0) {
                 return $json->$action;
+            } else if (isset($json->id)) {
+                return $json;
             }
 
             return $json->metadata->root;
