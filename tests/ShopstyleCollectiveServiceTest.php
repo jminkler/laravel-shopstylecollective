@@ -2,7 +2,7 @@
 
 namespace Jminkler\LaravelShopstyleCollective\Tests;
 
-
+use Carbon\Carbon;
 use Jminkler\LaravelShopstyleCollective\ShopstyleCollectiveService;
 
 class ShopstyleCollectiveServiceTest extends TestCase
@@ -109,5 +109,41 @@ class ShopstyleCollectiveServiceTest extends TestCase
         $this->assertEquals(1, $filter, 'We have the product');
 
     }
+
+    /** @test */
+    public function can_browse_products()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+        $products = $obj->products();
+
+        $this->assertTrue(count($products) == 10, 'We can get a search');
+
+    }
+
+    /** @test */
+    public function can_browse_products_on_sale_today()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+
+        $products = $obj->products(null, [
+            'pdd' => Carbon::parse('-1 day')->format('U'),
+        ]);
+
+
+        $this->assertTrue(count($products) == 10, 'We can get a search');
+
+        $first = $products[0];
+        $promo = $first->promotionalDeal;
+        $start = Carbon::parse($promo->startDate->date);
+        $end = Carbon::parse($promo->endDate->date);
+
+        $this->assertTrue(Carbon::parse('-1 day')->between($start, $end));
+
+
+    }
+
+
 
 }

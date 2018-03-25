@@ -24,7 +24,7 @@ class ShopstyleCollectiveService
         $this->base_uri = config('shopstyle.base_uri');
         $this->client = new Client([
             'base_uri' => $this->base_uri,
-            'timeout' => 2.0,
+            'timeout' => 10.0,
             'debug' => true,
         ]);
         $this->options = ['pid' => $this->apiKey];
@@ -57,11 +57,14 @@ class ShopstyleCollectiveService
         return $this->getJsonResponse(__FUNCTION__);
     }
 
-    public function products($id)
+    public function products($id = null, $options = [])
     {
-        return $this->getJsonResponse(__FUNCTION__ . '/' . $id);
-    }
+        if ($id) {
+            return $this->getJsonResponse(__FUNCTION__ . '/' . $id);
+        }
 
+        return $this->getJsonResponse(__FUNCTION__);
+    }
 
     private function getJson($response)
     {
