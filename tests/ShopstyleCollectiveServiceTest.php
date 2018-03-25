@@ -50,4 +50,20 @@ class ShopstyleCollectiveServiceTest extends TestCase
 
         $this->assertEquals(1, $brands, 'We have brands');
     }
+
+    /** @test */
+    public function can_list_all_colors()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+        $brands = $obj->colors();
+
+
+        $brands = collect($brands)->filter(function ($value, $key) {
+            return $value->name == 'Brown';
+        })->count();
+
+        $this->assertEquals(1, $brands, 'We have brands');
+    }
+
 }

@@ -9,7 +9,6 @@
 namespace Jminkler\LaravelShopstyleCollective;
 
 use GuzzleHttp\Client;
-use Log;
 
 class ShopstyleCollectiveService
 {
@@ -24,24 +23,26 @@ class ShopstyleCollectiveService
         $this->client = new Client([
             'base_uri' => $this->base_uri,
             'timeout' => 2.0,
-            'debug' => true,
+            'debug' => false,
         ]);
         $this->options = ['pid' => $this->apiKey];
     }
 
     public function categories($cat = null, $depth = null)
     {
-        $action = 'categories';
         $options = $this->getCategoriesOptions($cat, $depth);
 
-        return $this->getJsonResponse($action, $options);
+        return $this->getJsonResponse(__FUNCTION__, $options);
     }
 
     public function brands()
     {
-        $action = 'brands';
+        return $this->getJsonResponse(__FUNCTION__);
+    }
 
-        return $this->getJsonResponse($action);
+    public function colors()
+    {
+        return $this->getJsonResponse(__FUNCTION__);
     }
 
     private function getJson($response)
@@ -56,7 +57,6 @@ class ShopstyleCollectiveService
     private function get($action, $options)
     {
         $options['query'] = http_build_query(array_merge($this->options, $options));
-        Log::info(__CLASS__, [$options]);
         $response = $this->client->get(
             $action,
             $options
