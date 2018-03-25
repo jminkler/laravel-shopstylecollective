@@ -8,7 +8,7 @@
 
 namespace Jminkler\LaravelShopstyleCollective;
 
-use Guzzlehttp\Client;
+use GuzzleHttp\Client;
 
 class ShopstyleCollectiveService
 {
@@ -18,13 +18,24 @@ class ShopstyleCollectiveService
     public function __construct($apiKey)
     {
         $this->apiKey = $apiKey;
-        $this->client = new Client(['base_url' => config('shopstyle.base_url')]);
+        $this->client = new Client([
+            'base_uri' => config('shopstyle.base_uri'),
+            'timeout' => 2.0,
+            'debug' => true,
+        ]);
 
     }
 
     public function categories()
     {
-        return $this->client->get('categories', ['pid' => $this->apiKey]);
+        $url = config('shopstyle.base_uri', 'http://api.shopstyle.com/api/v2') . '/categories';
+
+        return $this->client->request(
+            'GET',
+            $url,
+            ['query' => 'pid=' . $this->apiKey]
+        );
+
     }
 
 }

@@ -25,6 +25,10 @@ class ShopstyleCollectiveServiceProvider extends ServiceProvider
 
             return new ShopstyleCollectiveService($apiKey);
         });
+
+        if ($this->app->config->get('shopstyle') === null) {
+            $this->app->config->set('shopstyle', require __DIR__ . '/../config/shopstyle.php');
+        }
     }
 
     public function provides()

@@ -18,9 +18,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Jminkler\\LaravelShopstyleCollective\\Test\\": "tests/"
+            "Jminkler\\LaravelShopstyleCollective\\Tests\\": "tests/"
         }
-    }
+    },
     "extra": {
         "laravel": {
             "providers": [
