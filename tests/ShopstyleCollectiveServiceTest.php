@@ -93,4 +93,21 @@ class ShopstyleCollectiveServiceTest extends TestCase
         $this->assertEquals('Matthew Williamson Jungle Whispers Gown', $product->name, 'We have the product');
     }
 
+    /** @test */
+    public function can_get_price_filters()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+        $filters = $obj->priceFilters();
+
+
+        $filter = collect($filters)->filter(function ($value, $key) {
+            return $value->id == 7;
+        })->count();
+
+
+        $this->assertEquals(1, $filter, 'We have the product');
+
+    }
+
 }

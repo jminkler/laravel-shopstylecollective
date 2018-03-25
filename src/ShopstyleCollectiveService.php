@@ -50,6 +50,11 @@ class ShopstyleCollectiveService
         return $this->getJsonResponse(__FUNCTION__);
     }
 
+    public function priceFilters()
+    {
+        return $this->getJsonResponse(__FUNCTION__);
+    }
+
     public function products($id)
     {
         return $this->getJsonResponse(__FUNCTION__ . '/' . $id);
