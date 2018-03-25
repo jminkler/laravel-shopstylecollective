@@ -1,9 +1,7 @@
 <?php
 
-namespace lasselehtinen\MyPackage\Test;
+namespace Jminkler\LaravelShopstyleCollective;
 
-use Jminkler\LaravelShopstyleCollective\ShopstyleCollectiveServiceProvider;
-use Jminkler\LaravelShopstyleCollective\ShopstyleFacade;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
