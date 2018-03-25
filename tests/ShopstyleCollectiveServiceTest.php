@@ -66,4 +66,19 @@ class ShopstyleCollectiveServiceTest extends TestCase
         $this->assertEquals(1, $brands, 'We have brands');
     }
 
+    /** @test */
+    public function can_list_all_retailers()
+    {
+        $obj = new ShopstyleCollectiveService(config('shopstyle.api_key'));
+
+        $brands = $obj->retailers();
+
+
+        $brands = collect($brands)->filter(function ($value, $key) {
+            return $value->name == 'Nordstrom';
+        })->count();
+
+        $this->assertEquals(1, $brands, 'We have brands');
+    }
+
 }

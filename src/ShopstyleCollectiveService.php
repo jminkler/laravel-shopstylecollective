@@ -45,6 +45,11 @@ class ShopstyleCollectiveService
         return $this->getJsonResponse(__FUNCTION__);
     }
 
+    public function retailers()
+    {
+        return $this->getJsonResponse(__FUNCTION__);
+    }
+
     private function getJson($response)
     {
         $json = json_decode($response->getBody()->getContents());
