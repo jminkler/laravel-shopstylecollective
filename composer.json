@@ -1,0 +1,29 @@
+{
+    "name": "jminkler/laravel-shopstylecollective",
+    "description": "Laravel package to work with the Shopstyle Collective API",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "Jarret Minkler",
+            "email": "jarret.minkler@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jminkler\\LaravelShopstyleCollective\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jminkler\\LaravelShopstyleCollective\\ShopstyleCollectiveServiceProvider"
+            ],
+            "aliases": {
+                "Shopstyle": "Jminkler\\LaravelShopstyleCollective\\ShopstyleFacade"
+            }
+        }
+    }
+}
