@@ -13,17 +13,18 @@ use Guzzlehttp\Client;
 class ShopstyleCollectiveService
 {
     protected $apiKey;
+    protected $base_url;
 
     public function __construct($apiKey)
     {
         $this->apiKey = $apiKey;
-        $this->client = new Client();
+        $this->client = new Client(['base_url' => config('shopstyle.base_url')]);
 
     }
 
-    public function search($keywords, array $options)
+    public function categories()
     {
-        $this->client->get();
+        return $this->client->get('categories', ['pid' => $this->apiKey]);
     }
 
 }

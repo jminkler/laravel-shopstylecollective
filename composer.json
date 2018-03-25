@@ -16,6 +16,11 @@
             "Jminkler\\LaravelShopstyleCollective\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Jminkler\\LaravelShopstyleCollective\\Test\\": "tests/"
+        }
+    }
     "extra": {
         "laravel": {
             "providers": [
@@ -25,5 +30,9 @@
                 "Shopstyle": "Jminkler\\LaravelShopstyleCollective\\ShopstyleFacade"
             }
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "orchestra/testbench": "^3.5"
     }
 }
